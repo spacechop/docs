@@ -16,7 +16,7 @@ SpaceChop is the best way to do easy image processing. The tool is designed to h
 
 ## Getting started
 
-The docs are broken into five distinct sections to make it easy to find your way around:
+The docs for SpaceChop are mainly written using the React, but most of the examples work no matter where you use SpaceChop. The docs are broken into five distinct sections to make it easy to find your way around:
 
 1. **ESSENTIALS:** Outlines everything you need to know in order to get up and running quickly.
 2. **FEATURES:** Details the amazing things you can do with SpaceChop.
