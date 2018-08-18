@@ -1,99 +1,28 @@
-# SpaceChop
+---
+description: What is SpaceChop and what does it do?
+---
 
-SpaceChop is a fully-featured image processing microservice with integrations for remote sources in Amazon S3, Digital Ocean Spaces, and more. It allows you to easily transform images through HTTP get requests. SpaceChop does not use any CDN, storage, database or caching, instead it relies on you to add this in front and behind the processing pipeline.
+# Introduction
 
-At [spacechop.com](https://spacechop.com), you can get for the hosted solution of SpaceChop which includes CDN, storage, caching, database, statistics and analytics for your service.
+SpaceChop is the best way to do easy image processing. The tool is designed to help you quickly setup a service that fetches original images from your source and process and deliver them accordingly, and can be used with any back-end or front-end. The client is:
 
-To get started with SpaceChop, [**go to our documentation website**](https://spacechop.gitbook.io/spacechop/).
-
-## Installation
-
-To install SpaceChop you need two files:
-
-`config.yml`
-
-```yaml
-paths:
-  - /:preset/:image(.*)
-sources:
-  - http:
-    root: http://commons.wikipedia.org/:image
-presets:
-  # fill 200x200 with type jpg and compress with quality 0.9
-  t_200:
-    steps:
-      - $fill:
-        width: 200
-        height: 200
-      - $format:
-        type: jpg
-      - $compress:
-        quality: 0.9
-```
-
-`docker-compose.yml`
-
-```yaml
-version: '3'
-services:
-  spacechop:
-    container_name: spacechop
-    image: spacechop
-    ports:
-      - 8080:3000
-    volumes:
-      - ./config.yml:/config.yml
-```
-
-```bash
-# start the service using docker-compose
-docker-compose up -d
-
-# check the logs for help with your configuration and see what's happening
-docker-compose logs -f spacechop
-```
+* **Incrementally adoptable:** You can drop it into an existing app today.
+* **Universally compatible:** SpaceChop works with any build setup, any back-end server, and any front-end use case.
+* **Simple to get started with:** Start loading images right away and learn about advanced features later.
+* **Inspectable and understandable:** Interrogate and understand exactly what is happening with your images.
+* **Built for interactive use:** Changes to configuration is updated without restarting the docker service and can be seen immediately.
+* **Small and flexible:** You don’t get stuff you don't need.
+* **Community driven:** SpaceChop is driven by the community and serves a variety of use cases.
 
 ## Getting started
 
-You will at least need a path, source and preset to get started.
+The docs are broken into five distinct sections to make it easy to find your way around:
 
-### paths and sources
+1. **ESSENTIALS:** Outlines everything you need to know in order to get up and running quickly.
+2. **FEATURES:** Details the amazing things you can do with SpaceChop.
+3. **ADVANCED:** Covers the more advanced SpaceChop capabilities that you may need.
+4. **RECIPES:** Learn about and understand common patterns.
+5. **API:** Full API details for SpaceChop operations.
 
-Paths and sources are interlinked and work together using [`path-to-regex`](https://github.com/pillarjs/path-to-regexp) with support for \(\)-matching groups. Use the path [express-route-tester](http://forbeslindesay.github.io/express-route-tester/) with version **2.0.0** to see what works.
 
-Basically how it works is that the path you request at [http://localhost:8080/t\_200/your-unique-path/with-slashes/to-and-image-url.jpg](http://localhost:8080/t_200/your-unique-path/with-slashes/to-and-image-url.jpg) will look through your sources until it finds an image for your root url \(if you are using the http source\).
-
-i.e.  
-[http://localhost:8080/t\_200/your-unique-path/with-slashes/to-and-image-url.jpg](http://localhost:8080/t_200/your-unique-path/with-slashes/to-and-image-url.jpg) will in the above configuration look at: [http://commons.wikipedia.org/your-unique-path/with-slashes/to-and-image-url.jpg](http://commons.wikipedia.org/your-unique-path/with-slashes/to-and-image-url.jpg)
-
-Notice the usage of :image in paths and sources, you can change this to whatever makes sense for you in your matching. You can use your own variable names and matching in your sources.
-
-Each source has its own set of configuration to be able to lookup and download originals. You can [read more about each source in our documentation](https://spacechop.gitbook.io/spacechop/).
-
-### presets
-
-As you might have seen there is a :preset variable in the path in the example configuration above, this is the only required variable in path that there is, and this will match the exact name of your preset in the configuration as you might have guessed.
-
-In a preset there are steps which are composed of a list of operations with their unique set of options. You can [read more about each operation in our documentation](https://spacechop.gitbook.io/spacechop/).
-
-## Contributing
-
-[![codecov](https://codecov.io/gh/spacechop/spacechop/branch/master/graph/badge.svg)](https://codecov.io/gh/spacechop/spacechopt)
-
-[Read the SpaceChop Contributor Guidelines.]()
-
-Running tests locally:
-
-```text
-sh test.sh
-```
-
-or manually using docker-compose
-
-```text
-docker-compose up -d --build
-docker-compose exec spacechop sh -c "npm run test:watch"
-```
-
-This project uses TypeScript for static typing and TSLint for linting. You can get both of these built into your editor with no configuration by opening this project in [Visual Studio Code](https://code.visualstudio.com/), an open source IDE which is available for free on all platforms.
 

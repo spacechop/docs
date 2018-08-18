@@ -1,5 +1,5 @@
 # Table of contents
 
-* [SpaceChop](README.md)
+* [Introduction](README.md)
 * [Introduction](introduction.md)
 
